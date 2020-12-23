@@ -1,3 +1,33 @@
+#COMANDOS GIT EN OH-MY-ZSH
+ Agregar archivos a staggin
+ga   git add
+gaa  git add --all
+
+ Branch
+gb   git branch
+gba  git branch -a //Muestra todas las ramas
+gbd  git branch -d <nombre_rama> //Eliminar una rama
+
+ Commit
+gcmsg git commit -m
+
+ Checkout
+gcm  git checkout $(git_main_branch)
+gco  git checkout
+
+ Log
+glg  git log --stat
+glgg git log --graph
+glo  git log --oneline --decorate
+glog git log --oneline --decorate --graph
+
+ Status
+gsb  git status -s -b (Short y Branch)
+gst  git status
+gss  git status -s
+
+
+#RECUPERAR ARCHIVOS BORRADOS DE GIT
 Para recuperar un archivo ya eliminado del directorio, que haya pasado por
 stagging area, usamos el siguiente comando para buscar archivos eliminados en git
 
