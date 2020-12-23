@@ -1,0 +1,9 @@
+Para recuperar un archivo ya eliminado del directorio, que haya pasado por
+stagging area, usamos el siguiente comando para buscar archivos eliminados en git
+
+git log --oneline --name--status --diff-filter=D
+
+Despues copiamos el identificador del commit que queramos recuperar
+y escribimos el siguiente comando:
+
+git checkout <id_commit>^<nombnre_directorio o nombre_archivo>
