@@ -36,4 +36,4 @@ git log --oneline --name--status --diff-filter=D
 Despues copiamos el identificador del commit que queramos recuperar
 y escribimos el siguiente comando:
 
-git checkout <id_commit>^<nombnre_directorio o nombre_archivo>
+git checkout <id_commit>^ <nombnre_directorio> o <nombre_archivo>
