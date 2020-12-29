@@ -37,3 +37,12 @@ Despues copiamos el identificador del commit que queramos recuperar
 y escribimos el siguiente comando:
 
 git checkout <id_commit>^ <nombnre_directorio> o <nombre_archivo>
+
+#CREAR NUEVOS ALIAS
+
+Para crear alias globales escribimos lo siguiente:
+git config --global alias.<nombre del alias> "Comando que deseamos hacer alias"
+ejemplo:
+git config --global alias.logp "log --oneline --pretty --all --graph"
+para usarlo:
+git logp
