@@ -4,10 +4,18 @@ ga   git add
 gaa  git add --all
 
  Branch
-gb   git branch
+gb   git branch    //Muestra Ramas Locales
 gba  git branch -a //Muestra todas las ramas
 gbd  git branch -d <nombre_rama> //Eliminar una rama
 
+#CREAR RAMAS
+gb <Nombre Rama>  //Crea Rama Local a partir de Master
+
+#CREAR RAMA Y CAMBIAR DESDE UN INICIO
+gco -b <NOMBRE_RAMA>
+gsw -c <NOMBRE_RAMA>
+
+gsw - //Cambia a la rama anterior
  Commit
 gcmsg git commit -m
 
@@ -46,3 +54,17 @@ ejemplo:
 git config --global alias.logp "log --oneline --pretty --all --graph"
 para usarlo:
 git logp
+
+----GITHUB-----
+
+#CHECAR RAMAS REMOTAS
+git  remote -v //Muestra ramas remotas
+gr   git remote
+
+
+#CREAR RAMAS REMOTAS NUEVAS
+gra git remote add <NOMBRE DEL REMOTO> <URL_REPO_GITHUB>
+
+
+
+ 
