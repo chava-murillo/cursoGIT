@@ -65,6 +65,18 @@ gr   git remote
 #CREAR RAMAS REMOTAS NUEVAS
 gra git remote add <NOMBRE DEL REMOTO> <URL_REPO_GITHUB>
 
+#PUSH
+gp git push
+
+#ELIMINAR RAMAS REMOTAS
+git push <NOMBRE DEL REMOTO> :<NOMBRE DE LA RAMA> (1ra Manera)
+git push -d <NOMBRE DEL REMOTO> <NOMBRE DE LA RAMA> (2da Manera)
+
+<<Se puede renombrar rama principal remota desde los ajustes de github, despues se puede eliminar la rama principal, verificar que el head no apunte hacia el main con:
+git remote show <NOMBRE DEL REMOTO>
+
+
+
 
 
  
