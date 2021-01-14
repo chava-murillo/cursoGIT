@@ -68,6 +68,9 @@ gra git remote add <NOMBRE DEL REMOTO> <URL_REPO_GITHUB>
 #PUSH
 gp git push
 
+#ENVIAR TODAS LAS RAMAS AL REMOTO
+git push -u <NOMBRE DEL REMOTO> --all
+
 #ELIMINAR RAMAS REMOTAS
 git push <NOMBRE DEL REMOTO> :<NOMBRE DE LA RAMA> (1ra Manera)
 git push -d <NOMBRE DEL REMOTO> <NOMBRE DE LA RAMA> (2da Manera)
