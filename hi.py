@@ -1,3 +1,4 @@
 saludo = "Hola curso"
-
-print(saludo)
+a = 4
+b = 6
+print(saludo + (a+b))
