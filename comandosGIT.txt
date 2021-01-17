@@ -1,5 +1,9 @@
-#COMANDOS GIT EN OH-MY-ZSH
- Agregar archivos a staggin
+#CONFIGURAR CREDENCIALES DE GIT EN EQUIPO 
+git config --global user.name "Nombre"
+git config --global user.email "Correo"
+
+##COMANDOS GIT EN OH-MY-ZSH
+Agregar archivos a staggin
 ga   git add
 gaa  git add --all
 
@@ -28,6 +32,7 @@ glg  git log --stat
 glgg git log --graph
 glo  git log --oneline --decorate
 glog git log --oneline --decorate --graph
+gloga git log --oneline --decorate --graph --all
 
  Status
 gsb  git status -s -b (Short y Branch)
@@ -47,6 +52,9 @@ y escribimos el siguiente comando:
 git checkout <id_commit>^ <nombnre_directorio> o <nombre_archivo>
 
 #CREAR NUEVOS ALIAS
+Revisar alias globales creados
+git config --global -e (editar)
+git config --global -l (mostrar)
 
 Para crear alias globales escribimos lo siguiente:
 git config --global alias.<nombre del alias> "Comando que deseamos hacer alias"
