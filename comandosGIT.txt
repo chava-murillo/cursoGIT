@@ -23,9 +23,22 @@ gsw - //Cambia a la rama anterior
  Commit
 gcmsg git commit -m
 
+##CAMBIAR MENSAJE DE COMMIT ANTERIOR
+gc! -m (git commit --amend -m)
+
+##RESTAURAR CAMBIOS Y COMMIT
+git reset --soft HEAD^ //Va apuntar hacia al ultimo commit
+--Se puede modificar el archivo--
+git commit -am "Mensaje de commit" //Se actualiza mensaje del commit creado anteriormente
+
  Checkout
 gcm  git checkout $(git_main_branch)
 gco  git checkout
+
+grh  git reset HEAD <Nombre del archivo> //Sacar del staged y mandar a unstaged
+//NECESITA ESTAR EN UNSTAGED 
+gco -- <Nombre del archivo>//Regresa los archivos al commit anterior
+
 
  Log
 glg  git log --stat
@@ -39,6 +52,30 @@ gsb  git status -s -b (Short y Branch)
 gst  git status
 gss  git status -s
 
+#ELIMINAR COMMIT O APUNTAR HACIA COMMIT ANTERIOR
+git reset --hard <id_commit>
+
+#VOLVER A UN COMMIT FUTURO O ELIMINADO
+git reflog
+Copiamos id_commit
+git reset --hard <id_commit>
+
+##ETIQUETAS (TAGS)
+Si queremos colocar a etiquetas a versiones alpha, beta, release, etc, se hace de la siguiente manera:
+
+git tag -a <version> -m <Mensaje sobre la version" //La version puede ser tanto en numero como letras ejemplo: v1.0.1, Alpha, etc.
+
+Esto le colocara la etiqueta al ultimo commit, en cambio si queremos etiquetar un commit pasado debemos de colocar lo siguiente
+
+git tag -a <version> <id_commit> -m <Mensaje sobre la version"
+
+##RENOMBRAR ARCHIVOS FUERA DE GIT
+Si cambiamos el nombre de un archivo fuera de git y hacemos un gss veremos dos archivos
+ D historia/superman.historia.md //original BORRADO
+?? historia/superman.md          //renombrado
+
+Tenemos que hacer un git add -u (gau) para actualizar los archivos, despues un git add -A (gaa), si volvemos a hacer un git status veremos que ya lo marca como renombrado
+R  historia/superman.historia.md -> historia/superman.md
 
 #RECUPERAR ARCHIVOS BORRADOS DE GIT
 Para recuperar un archivo ya eliminado del directorio, que haya pasado por
