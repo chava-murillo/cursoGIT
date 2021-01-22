@@ -28,8 +28,13 @@ gc! -m (git commit --amend -m)
 
 ##RESTAURAR CAMBIOS Y COMMIT
 git reset --soft HEAD^ //Va apuntar hacia al ultimo commit
+
 --Se puede modificar el archivo--
 git commit -am "Mensaje de commit" //Se actualiza mensaje del commit creado anteriormente
+
+######### USAR PARA ELIMINAR ALGUNOS COMMIT, MIXED 
+git reset --mixed <id_commit> //Va apuntar hacia el id_commit SIN borrar los archivos nuevos, solo los saca del staged
+git reset --hard <id_commit> //Va colocar el HEAD en ese punto
 
  Checkout
 gcm  git checkout $(git_main_branch)
@@ -68,6 +73,46 @@ git tag -a <version> -m <Mensaje sobre la version" //La version puede ser tanto 
 Esto le colocara la etiqueta al ultimo commit, en cambio si queremos etiquetar un commit pasado debemos de colocar lo siguiente
 
 git tag -a <version> <id_commit> -m <Mensaje sobre la version"
+
+##STASH
+Sirve para dejar un trabajo (de la rama) pendiente por algo de emergencia, se usa de la siguiente manera:
+Si queremos un Stash espcifico indicar "stash@{n}" despues del comando drop, apply, pop.
+
+gsta git stash //Esto manda los ultimos cambios guardados al stash (pueden existir varios) se crea un WIP (Work In Progress)
+gsta -m "Mensaje"
+Se trabaja en lo urgente, se hace el commit de lo urgente.
+
+::LIST
+Para ver la lista de los stash que existen hacemos lo siguiente:
+gstl git stash list
+
+Despues para volver a unir los cambios que ya habiamos realizado hacemos lo siguiente:
+
+::POP (BORRA EL STASH)
+gstp git stash pop //Esto traera los cambios que existen entre el ultimo WIP y del HEAD del commit:
+
+1.NO HAY CONFLICTOS: Hara el merge sin problema y BORRARA el stash.
+2.SI HAY CONFLICTOS: Si hay conflictos entre archivos se mostraran, se corrigen pero hay que ELIMINAR el stash con drop.
+
+::APPLY (NO BORRA EL STASH)
+gstaa git stash apply //Trae los cambios en el ultimo stash y los une con el head de la lista de commit
+gstaa "stash{n}" //Trae los cambios del stash{n} y los une con el head de la lista de commit
+
+::DROP
+Para eliminar los stash se puede hacer con lo siguiente:
+gstd git stash drop //Elimina el stash{0}
+gstd "stash{n}" //Elimina el stash{n}
+gstc git stash clear //Elimina todos los stash que existan
+
+::SHOW
+ El comando show nos muestra información acerca de los cambios
+ gsts git stash show //Muestra diferencias de manera corta
+ gsts -p //Muestra todas las diferencias
+
+::Untracked Files
+Poedemos hacer stash a archivos mixto con y sin seguimiento, para esto hacemos uso de:
+gstu git stash --include--untracked
+gstu -m "Mensaje"
 
 ##RENOMBRAR ARCHIVOS FUERA DE GIT
 Si cambiamos el nombre de un archivo fuera de git y hacemos un gss veremos dos archivos
