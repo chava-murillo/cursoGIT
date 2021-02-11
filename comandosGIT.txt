@@ -74,6 +74,14 @@ Esto le colocara la etiqueta al ultimo commit, en cambio si queremos etiquetar u
 
 git tag -a <version> <id_commit> -m <Mensaje sobre la version"
 
+gtv  = git tag | sort -V //Nos mostrara las etiquetas que hay en el repositorio
+
+##MERGE
+Traera los cambios y commits de la rama especificada hacia la que estamos parados
+git merge <nombre_rama>
+gm   = 'git merge'
+gmom = 'git merge origin/$(git_main_branch)'
+
 ##STASH
 Sirve para dejar un trabajo (de la rama) pendiente por algo de emergencia, se usa de la siguiente manera:
 Si queremos un Stash espcifico indicar "stash@{n}" despues del comando drop, apply, pop.
@@ -102,6 +110,8 @@ gstaa "stash{n}" //Trae los cambios del stash{n} y los une con el head de la lis
 Para eliminar los stash se puede hacer con lo siguiente:
 gstd git stash drop //Elimina el stash{0}
 gstd "stash{n}" //Elimina el stash{n}
+
+::CLEAR
 gstc git stash clear //Elimina todos los stash que existan
 
 ::SHOW
@@ -110,9 +120,85 @@ gstc git stash clear //Elimina todos los stash que existan
  gsts -p //Muestra todas las diferencias
 
 ::Untracked Files
-Poedemos hacer stash a archivos mixto con y sin seguimiento, para esto hacemos uso de:
+Poedemos hacer stash a archivos mixtos es decir con y sin seguimiento, para esto hacemos uso de:
 gstu git stash --include--untracked
 gstu -m "Mensaje"
+
+#REBASE
+Sirve para actualizar (moviendola) una rama derivada con respecto a otra con la diferencia de commits (en caso de que existan cambios/commits sobre nuestra linea)
+**Se usa en primera instancia cuando existen commits sobre la misma linea de tiempo, en lugar de un merge.
+ 
+grb  = git rebase
+grbm = git rebase $(git_main_branch) //Hace un rebase a la rama principal
+
+Git rebase interactivo
+grbi = git rebase -i
+grbi = git rebase -i HEAD~3
+//Donde head apunta hacia el ultimo commit(puede ser otro commit con su hash) y el numero despues de ~ indica cuantos commits antes para que se haga el rebase.
+
+Una vez haciendo el rebase, continuamos con los trabajos de nuestra rama, al final cuando queramos unir los cambios haremos un merge en la rama maestra
+gcm --> gm <rama_de_trabajo>
+
+Funcion principal del rebase:
+*Ordenar commits
+*Corregir mensajes de los commits
+*Separar commits
+*Unir commits
+
+::SQUASH (Unir 2 commits)
+El squash nos va a servir para poder unir 2 commits en uno solo, conservando la información, para esto hacemos primero uso del siguinte comando:
+grbi head~n //Donde n indica cuantos commits atras queremos
+
+ Se abrira una pantalla con algo similar a esto:
+   ::Veremos los commits que indicamos con el head~4 
+    pick 300c014 Misiones nuevas agregadas
+    pick 158ba9e Se agrego a la liga: Volcán Negro
+    pick 19cea51 Agregamos el archivo de las misiones completadas
+    s ea53ed0 Actualizamos la informacion de las misiones completadas
+
+   ::De acuerdo a los comandos de abajo tenemos que modificar la palabra "pick" arriba segun lo que queramos hacer, por ejemplo si elegimos squash, borramos pick y ponemos squash o solo la s 
+    # Rebase acea380..ea53ed0 onto acea380 (4 commands)
+    #
+    # Commands:
+    # p, pick <commit> = use commit
+    # r, reword <commit> = use commit, but edit the commit message
+    # e, edit <commit> = use commit, but stop for amending
+    # s, squash <commit> = use commit, but meld into previous commit
+    # f, fixup <commit> = like "squash", but discard this commit's log message
+    # x, exec <command> = run command (the rest of the line) using shell
+    # b, break = stop here (continue rebase later with 'git rebase --continue')
+    # d, drop <commit> = remove commit
+    # l, label <label> = label current HEAD with a name
+    # t, reset <label> = reset HEAD to a label
+    # m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]
+    # .       create a merge commit using the original merge commit's
+    # .       message (or the oneline, if no original merge commit was
+    # .       specified). Use -c <commit> to reword the commit message.
+    #
+    # These lines can be re-ordered; they are executed from top to bottom.
+
+    Al finalizar damos enter, nos mandara a otra pantalla, donde vamos a tener que modificar el mensaje del commit.
+
+::REWORD
+Con este comando podremos renombrar un commit
+grbi head~n o id_commit
+
+Cambiamos la palabra pick por reword, salimos y modificamos el mensaje.
+
+::EDIT
+(Util para separar un commmit en varios commits)
+Despues podemos editar los archivos que se hicieron cambios en el ultimo commit
+grbi head~1 
+
+Entramos y cambiamos la palabra pick por e o edit, salimos y hacemos lo siguiente:
+git reset head^ //Volveremos al estado antes del commit y podemos editar los archivos.
+
+Editamos los archivos ya sea juntos o por separado, si lo hacemos por separado los agregamos con git add <Nombre del archivo>
+gcsm = git commit -s -m  //Para agregar solo el archivo
+
+Cuando terminemos de hacer los commits por archivos haremos lo siguiente para volver a Master
+
+grbc = git rebase --continue
 
 ##RENOMBRAR ARCHIVOS FUERA DE GIT
 Si cambiamos el nombre de un archivo fuera de git y hacemos un gss veremos dos archivos
@@ -146,28 +232,43 @@ para usarlo:
 git logp
 
 ----GITHUB-----
+##CLONAR REMOTO
+Para clonar un remoto nos dirigimos a la ubicacion donde deseamos almacenar los archivos y hacemos lo siguiente:
+git clone <URL_REPO_GITHUB> //Esto traera todo el contenido y creara una carpeta con el nombre del repositorio
+git clone <URL_REPO_GITHUB> <Nombre_Carpeta> //Guardara todo el contenido en la carpeta 
 
-#CHECAR RAMAS REMOTAS
-git  remote -v //Muestra ramas remotas
-gr   git remote
+##AGREGAR REMOTO
+gra  = git remote add <Nombre_remoto> <URL_Github> //Por lo general el remoto siempre se llama 'origin'
 
+::CHECAR RAMAS REMOTAS
+gr   = git remote //Muestra el nombre de todos los remotos
+grv  = git remote -v //Muestra ramas remotas (fetch/push)
 
-#CREAR RAMAS REMOTAS NUEVAS
-gra git remote add <NOMBRE DEL REMOTO> <URL_REPO_GITHUB>
+##PUSH (Mandar cambios locales al remoto)
+gp   = git push
+git push -u <Nombre_remoto> <nombre_rama> //Define la rama que siempre se hara push (Para solo usar git push)
 
-#PUSH
-gp git push
-
-#ENVIAR TODAS LAS RAMAS AL REMOTO
+::ENVIAR TODAS LAS RAMAS AL REMOTO
 git push -u <NOMBRE DEL REMOTO> --all
 
-#ELIMINAR RAMAS REMOTAS
+::ENVIAR TODOS LOS TAGS A GITHUB
+git push --tags
+
+Un comando para las 2 acciones de arriba:
+gpoat = 'git push origin --all && git push origin --tags'
+
+::ELIMINAR RAMAS REMOTAS
 git push <NOMBRE DEL REMOTO> :<NOMBRE DE LA RAMA> (1ra Manera)
 git push -d <NOMBRE DEL REMOTO> <NOMBRE DE LA RAMA> (2da Manera)
 
 <<Se puede renombrar rama principal remota desde los ajustes de github, despues se puede eliminar la rama principal, verificar que el head no apunte hacia el main con:
 git remote show <NOMBRE DEL REMOTO>
 
+##PULL (Bajar cambios/Actualiza los archivos desde Github y hace MERGE con nuestros cambios, si hay commits adelante)
+gl  = git pull 
+
+##FETCH (Solo baja los cambios, sera necesario hacer merge despues)
+gf  = git fetch
 
 
 
