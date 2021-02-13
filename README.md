@@ -265,13 +265,16 @@ gpoat = 'git push origin --all && git push origin --tags'
 git push <NOMBRE DEL REMOTO> :<NOMBRE DE LA RAMA> (1ra Manera)
 git push -d <NOMBRE DEL REMOTO> <NOMBRE DE LA RAMA> (2da Manera)
 
-<<Se puede renombrar rama principal remota desde los ajustes de github, despues se puede eliminar la rama principal, verificar que el head no apunte hacia el main con:
+Se puede renombrar rama principal remota desde los ajustes de github, despues se puede eliminar la rama principal, verificar que el head no apunte hacia el main con:
+
 git remote show <NOMBRE DEL REMOTO>
 
-##PULL (Bajar cambios/Actualiza los archivos desde Github y hace MERGE con nuestros cambios, si hay commits adelante)
+# PULL 
+Bajar cambios/Actualiza los archivos desde Github y hace MERGE con nuestros cambios, si hay commits adelante
 gl  = git pull 
 
-##FETCH (Solo baja los cambios, sera necesario hacer merge despues)
+# FETCH
+Solo baja los cambios, sera necesario hacer merge despues
 gf  = git fetch
 
 
