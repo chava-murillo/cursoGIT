@@ -2,7 +2,7 @@
 using namespace std;
 
 int main(){
-  cout << "Hola cdmx" << endl;
+  cout << "Hola MTY" << endl;
 }
 
 
